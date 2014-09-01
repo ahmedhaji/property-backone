@@ -1,0 +1,233 @@
+
+<div class="row">
+
+    <form class="form-horizontal span12">
+
+
+        <fieldset>
+
+            <legend>
+            	Property Details
+            </legend>
+			<div id="tabs" class="nav-tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tabs-1" data-toggle="tab">Property Details</a></li>
+					<li><a href="#tabs-2" data-toggle="tab">Contact Landlord</a></li>
+					<span style="<%= editMode ? 'display:none' : 'display:visible'%>"><a href="#" class="edit pull-right" name="editMode">edit</a></span>
+				</ul>
+				<div id="tab-content" class="tab-content">
+					<div id="tabs-1" class="tab-pane active">
+			            <div class="row">
+			                <div class="span9">
+			
+			                    <div class="control-group" style="<%= currentProperty.id==null ? 'display:none': 'display:visible' %>">
+			                        <label for="propertyId" class="control-label">Id:</label>
+			
+			                        <div class="controls">
+			                            <input id="propertyId" name="id" type="text" value="<%= currentProperty.id === null ? '' : currentProperty.id %>" class="span1"
+			                                   disabled/>
+			                        </div>
+			                    </div>
+			
+			                    <div class="control-group">
+			                        <label for="propertyTitle" class="control-label">Property Title:</label>
+			
+			                        <div class="controls">
+			                            <input type="text" id="propertyTitle" name="propertyTitle" value="<%= currentProperty.propertyTitle %>" <%=editMode===true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			
+			                    <div class="control-group">
+			                        <label for="noOfBedrooms" class="control-label">No. of Bedrooms:</label>
+			
+			                        <div class="controls">
+			                        	<select class="span1" id="noOfBedrooms" name="noOfBedrooms" value="<%=currentProperty.noOfBedrooms%>" <%=editMode===true ? '' : 'disabled'%>>
+			                            	<% for (var i=1;i<=10;i++) {%>
+			                            		<option <%= i == currentProperty.noOfBedrooms ? 'selected' : '' %>><%=i%></option>
+			                            	<% } %>
+			                            </select>
+			                        	
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			
+			                    <div class="control-group">
+			                        <label for="town" class="control-label">Town:</label>
+			
+			                        <div class="controls">
+			                            <input type="text" id="town" name="town" value="<%= currentProperty.town %>" <%=editMode==true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			
+			                    <div class="control-group">
+			                        <label for="city" class="control-label">City:</label>
+			
+			                        <div class="controls">
+			                            <input type="text" id="city" name="city" value="<%= currentProperty.city %>" <%=editMode==true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			                    
+			                    <div class="control-group">
+			                        <label for="country" class="control-label">Country:</label>
+			
+			                        <div class="controls">
+			                            <input type="text" id="country" name="country" value="<%= currentProperty.country %>" <%=editMode==true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			
+								<div class="control-group" style="<%= editMode==true ? 'display:visible' : 'display:none'%>">
+			                        <label for="currency" class="control-label">Currency:</label>
+			
+			                        <div class="controls">
+										<select class="span1" id="currency" name="currency" value="<%=currentProperty.currency%>">
+			                            	<%collections.currencies.each(function(currencyObj){%>
+			                            		<option <%= currencyObj.get('code') == currentProperty.currency ? 'selected' : '' %>><%=currencyObj.get('code')%></option>
+			                            	<%});%>
+			                            </select>
+									</div>
+								</div>
+			
+			                    <div class="control-group" style="<%= currentProperty.listedForSale || editMode ? 'display:visible' : 'display:none'%>">
+			                        <label for="purchasePrice" class="control-label">For Sale:</label>
+			
+			                        <div class="controls">
+				                        <div class="form-inline2">
+				                            <input type="text" id="purchasePrice" name="purchasePrice" class="span2" value="<%= currentProperty.listedForSale==true ? currentProperty.purchasePrice : 'N/A'%>" <%= currentProperty.listedForSale && editMode ? '' : 'disabled' %> />
+				                            <input type="checkbox" id="listedForSale" name="listedForSale" style="<%= editMode ? 'display:visible' : 'display:none' %>" <%= currentProperty.listedForSale == true ? "checked" : "" %> />
+				                            <span class="help-inline" style="<%= currentProperty.listedForSale && !editMode ? 'display:visible' : 'display:none'%>"><%=currentProperty.currency%></span>
+				                            <span class="help-inline"></span>
+										</div>
+									</div>                        
+			                    </div>
+			
+			                    <div class="control-group" style="<%= currentProperty.listedForRent || editMode ? 'display:visible' : 'display:none'%>">
+			                        <label for="listedForRent" class="control-label">For Rent:</label>
+			
+			                        <div class="controls">
+				                        <div class="form-inline2">
+				                            <input type="text" id="rentAmount" name="rentAmount" class="span2" value="<%= currentProperty.listedForRent==true ? currentProperty.rentAmount : 'N/A'%>" <%= currentProperty.listedForRent && editMode ? '' : 'disabled' %> />
+				                            <input type="checkbox" id="listedForRent" name="listedForRent" style="<%= editMode ? 'display:visible' : 'display:none' %>" <%= currentProperty.listedForRent ? "checked" : "" %> />
+				                        	<!--select class="span1" id="currency" name="currency" value="<%=currentProperty.currency%>" style="<%= currentProperty.listedForRent && editMode  ? 'display:visible' : 'display:none'%>">
+				                            	<%collections.currencies.each(function(currencyObj){%>
+				                            		<option <%= currencyObj.get('code') == currentProperty.currency ? 'selected' : '' %>><%=currencyObj.get('code')%></option>
+				                            	<%});%>
+				                            </select-->
+				                            <span class="help-inline" style="<%= currentProperty.listedForRent && !editMode ? 'display:visible' : 'display:none'%>"><%=currentProperty.currency%></span>
+				                            <span class="help-inline"></span>
+										</div>
+									</div>
+			                    </div>
+			                    
+			                    <div class="control-group">
+			                        <label for="description" class="control-label">Description:</label>
+			
+			                        <div class="controls">
+										<textarea type="text" id="description" name="description" <%=editMode==true ? '' : 'disabled'%>><%= currentProperty.description %></textarea>
+			                            <span class="help-inline"></span>
+									</div>
+								</div>
+			
+			                    
+			                </div>
+			
+			                <div class="span3">
+			                    <div class="well">
+			                        <p><img id="picture" width="180" src="<%= currentProperty.picture === null ? 'src/img/Home-icon.gif' : 'src/img/' + currentProperty.picture %>"/></p>
+			
+			                        <p>To change the picture, drag a new picture from your file system onto the box above.</p>
+			                    </div>
+			                </div>
+			
+						    <div class="span12">
+						        <div class="alert alert-success" style="display: none">
+						            <b>Success!</b> Property saved successfully
+						        </div>
+						    </div>
+			
+			            </div>
+	
+					</div>
+					<div id="tabs-2" class="tab-pane">
+			            <div class="row">
+			                <div class="span9">
+			                    <div class="control-group">
+			                        <label for="contactTitle" class="control-label">Title:</label>
+			                        <div class="controls">
+			                            <input type="text" id="contactTitle" name="contactTitle" value="<%= currentProperty.contactTitle %>" <%=editMode===true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                        <label for="contactFirstName" class="control-label">First Name:</label>
+			                        <div class="controls">
+			                            <input type="text" id="contactFirstName" name="contactFirstName" value="<%= currentProperty.contactFirstName %>" <%=editMode===true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                        <label for="contactLastName" class="control-label">Last Name:</label>
+			                        <div class="controls">
+			                            <input type="text" id="contactLastName" name="contactLastName" value="<%= currentProperty.contactLastName %>" <%=editMode===true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                        <label for="contactNo1" class="control-label">Primary Contact No:</label>
+			                        <div class="controls">
+			                            <input type="text" id="contactNo1" name="contactNo1" value="<%= currentProperty.contactNo1 %>" <%=editMode===true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                        <label for="contactNo2" class="control-label">Secondary Contact No:</label>
+			                        <div class="controls">
+			                            <input type="text" id="contactNo2" name="contactNo2" value="<%= currentProperty.contactNo2 %>" <%=editMode===true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                        <label for="contactNo3" class="control-label">Alternative Contact No:</label>
+			                        <div class="controls">
+			                            <input type="text" id="contactNo3" name="contactNo3" value="<%= currentProperty.contactNo3 %>" <%=editMode===true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                        <label for="contactEmailAddress" class="control-label">Email Address:</label>
+			                        <div class="controls">
+			                            <input type="text" id="contactEmailAddress" name="contactEmailAddress" value="<%= currentProperty.contactEmailAddress %>" <%=editMode===true ? '' : 'disabled'%>/>
+			                            <span class="help-inline"></span>
+			                        </div>
+			                    </div>
+		                    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+        </fieldset>
+
+        <div class="form-actions">
+            <a href="#" class="btn btn-primary save" style="<%= editMode ? 'display:visible' : 'display:none'%>">Save</a>
+            <a href="#" class="btn delete" style="<%= editMode ? 'display:visible' : 'display:none'%>">Delete</a>
+            <a href="#" class="btn cancel" style="<%= editMode ? 'display:visible' : 'display:none'%>">Cancel</a> <!--TODO implement this-->
+            <a href="#" class="btn back" style="<%= editMode ? 'display:none' : 'display:visible'%>">Back</a> <!--TODO implement this-->
+        </div>
+
+    </form>
+
+</div>
+
+<!--div class="row status-bar">
+    <div class="span12">
+        <div class="alert alert-success" style="display: none">
+            <b>Success!</b> Property saved successfully
+        </div>
+    </div>
+</div-->
+
+

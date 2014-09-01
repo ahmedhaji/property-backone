@@ -1,0 +1,41 @@
+a.plain:link
+{ color: #333; text-decoration: none }
+a.plain:active
+{ color: #333; text-decoration: none }
+a.plain:visited
+{ color: #333; text-decoration: none }
+a.plain:hover
+{ color: #333; text-decoration: none }
+
+.status-bar {
+    height: 60px;
+}
+
+.about-icon {
+    float: left;
+    margin-right: 12px;
+}
+
+.nav2 {
+margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  list-style: none;
+}
+
+.nav2 > li > a {
+  display: block;
+}
+
+.nav2 > li > a:hover {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+
+.nav2 > .pull-right {
+  float: right;
+}
+
+.alert-success2 {
+  color: #468847;
+ }

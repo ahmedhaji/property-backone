@@ -1,0 +1,7 @@
+<a href="#properties/<%= id %>" class="thumbnail plain">
+    <img src="<%= picture===null || picture=='' ? 'src/img/Home-icon.gif' : 'src/img/'+picture %>" height="150" width="125" alt="">
+    <h5><%= propertyTitle %>,</h5><h6><%= town %></h6>
+    <p>Listed: <%= lapseTime %> ago<br/>
+    <!-- <p>Listed: <%= listingDate ? (new Date()).getTime() - listingDate.getTime() : 'N/A' %> ago<br/> -->
+    <i class="icon-globe"></i> <%= city %>, <%= country %></p>
+</a>
